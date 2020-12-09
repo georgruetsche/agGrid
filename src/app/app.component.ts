@@ -13,11 +13,14 @@ export class AppComponent implements OnInit {
     title = 'my-app';
 
     columnDefs = [
-        { field: 'make', sortable: true, filter: true, checkboxSelection: true },
-        { field: 'model', sortable: true, filter: true },
-        { field: 'price', sortable: true, filter: true },
-        { field: 'available', sortable: true, filter: true }
+        { field: 'make', sortable: true, checkboxSelection: true, filter: 'agTextColumnFilter', floatingFilter: true},
+        { field: 'model', sortable: true, filter: 'agTextColumnFilter', floatingFilter: true },
+        { field: 'price', sortable: true, filter: 'agTextColumnFilter', floatingFilter: true },
+        { field: 'available', sortable: true, filter: 'agTextColumnFilter', floatingFilter: true },
     ];
+   
+
+    
 
     rowData: any;
 
