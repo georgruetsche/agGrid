@@ -18,9 +18,6 @@ export class AppComponent implements OnInit {
         { field: 'price', sortable: true, filter: 'agTextColumnFilter', floatingFilter: true },
         { field: 'available', sortable: true, filter: 'agTextColumnFilter', floatingFilter: true },
     ];
-   
-
-    
 
     rowData: any;
 
