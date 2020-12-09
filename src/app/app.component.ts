@@ -15,7 +15,8 @@ export class AppComponent implements OnInit {
     columnDefs = [
         { field: 'make', sortable: true, filter: true, checkboxSelection: true },
         { field: 'model', sortable: true, filter: true },
-        { field: 'price', sortable: true, filter: true }
+        { field: 'price', sortable: true, filter: true },
+        { field: 'available', sortable: true, filter: true }
     ];
 
     rowData: any;
