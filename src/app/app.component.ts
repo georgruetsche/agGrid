@@ -10,7 +10,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 export class AppComponent implements OnInit {
     @ViewChild('agGrid') agGrid: AgGridAngular;
 
-    title = 'my-app';
+    title = 'AppProjectAgGrid';
 
     columnDefs = [
         { field: 'make', sortable: true, checkboxSelection: true, filter: 'agTextColumnFilter', floatingFilter: true},
