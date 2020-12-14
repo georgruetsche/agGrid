@@ -70,9 +70,9 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.rowData = [
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Braun Markus'  },
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Kessler Esther'  },
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Sun Wei'  },
+            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Hans Muster'  },
+            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Peter Muster'  },
+            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Ralf Muster'  },
             { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W FS Corporate Finance & Private Equity' },
             { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Lehre Banking, Finance, Insurance' },
             { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Zentrum für Accounting&Controlling' },
