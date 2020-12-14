@@ -15,14 +15,17 @@ export class AppComponent implements OnInit {
     title = 'AppProjectAgGrid';
 
     columnDefs = [
-        { headerName: 'OE FS II', showRowGroup: 'OE FS II', cellRenderer: 'agGroupCellRenderer', minWidth: 200},
+        {headerName: '',
+        children: [
+        { headerName: 'OE FS II', showRowGroup: 'OE FS II', cellRenderer: 'agGroupCellRenderer', minWidth: 150, tooltipField: 'OE FS II', resizable: true},
         { field: 'OE FS II', rowGroup: true, hide: true, suppressColumnsToolPanel: true},
-        { headerName: 'OE FS III', showRowGroup: 'OE FS III', cellRenderer: 'agGroupCellRenderer', minWidth: 200},
+        { headerName: 'OE FS III', showRowGroup: 'OE FS III', cellRenderer: 'agGroupCellRenderer', minWidth: 150, tooltipField: 'OE FS III', resizable: true},
         { field: 'OE FS III', rowGroup: true, hide: true, suppressColumnsToolPanel: true},
-        { field: 'Mitarbeitername', rowGroup: false, hide: false, sortable: true, suppressColumnsToolPanel: false, resizable: true, suppressSizeToFit: true},
+        { field: 'Mitarbeitername', rowGroup: false, hide: false, sortable: true, suppressColumnsToolPanel: false, resizable: true, suppressSizeToFit: true, tooltipField: 'Mitarbeitername'},
+        ]},
         {headerName: 'DL',
         children: [
-        { field: 'ILV', rowGroup: false, hide: false, sortable: true, resizable: true},
+        { field: 'ILV', rowGroup: false, hide: false, sortable: true, resizable: true, tooltipField: 'ILV'},
         { field: 'Zeus', rowGroup: false, hide: false, sortable: true, resizable: true},
         { field: 'Delta', rowGroup: false, hide: false, sortable: true, resizable: true},
         { field: 'Delta in %', rowGroup: false, hide: false, sortable: true, resizable: true,}

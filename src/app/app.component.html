@@ -1,6 +1,5 @@
 <div><span style="display:none;">app-project-ag-grid app is running!</span></div>
 <button (click)="getSelectedRows()">Get Selected Rows</button>
-<button (click)="sizeToFit()">AutoSize</button>
 <ag-grid-angular
     #agGrid
     style="width: 100%; height: 500px;"
@@ -12,5 +11,6 @@
     [groupMultiAutoColumn]="true"
     [groupSuppressAutoColumn]="true"
     (gridReady)="onGridReady()"
+    [enableBrowserTooltips]="true"
 >
 </ag-grid-angular>
