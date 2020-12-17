@@ -1,9 +1,8 @@
 <div><span style="display:none;">app-project-ag-grid app is running!</span></div>
-<button (click)="getSelectedRows()">Get Selected Rows</button>
 <ag-grid-angular
     #agGrid
     style="width: 100%; height: 500px;"
-    class="ag-theme-alpine"
+    class="ag-theme-balham"
     [rowData]="rowData"
     [columnDefs]="columnDefs"
     rowSelection="multiple"
@@ -12,5 +11,12 @@
     [groupSuppressAutoColumn]="true"
     (gridReady)="onGridReady()"
     [enableBrowserTooltips]="true"
+    [suppressAggFuncInHeader]="true"
+    
+    
+    
+  
+
+    
 >
 </ag-grid-angular>

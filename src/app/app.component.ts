@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import 'ag-grid-enterprise';
+import { threadId } from 'worker_threads';
 
 
 @Component({
@@ -17,46 +18,52 @@ export class AppComponent implements OnInit {
     columnDefs = [
         {headerName: '',
         children: [
-        { headerName: 'OE FS II', showRowGroup: 'OE FS II', cellRenderer: 'agGroupCellRenderer', minWidth: 150, tooltipField: 'OE FS II', resizable: true},
+        { headerName: 'OE FS II', showRowGroup: 'OE FS II', cellRenderer: 'agGroupCellRenderer', minWidth: 150, tooltipField: 'OE FS II', resizable: true,  sortable: true},
         { field: 'OE FS II', rowGroup: true, hide: true, suppressColumnsToolPanel: true},
-        { headerName: 'OE FS III', showRowGroup: 'OE FS III', cellRenderer: 'agGroupCellRenderer', minWidth: 150, tooltipField: 'OE FS III', resizable: true},
+        { headerName: 'OE FS III', showRowGroup: 'OE FS III', cellRenderer: 'agGroupCellRenderer', minWidth: 150, tooltipField: 'OE FS III', resizable: true, sortable: true},
         { field: 'OE FS III', rowGroup: true, hide: true, suppressColumnsToolPanel: true},
         { field: 'Mitarbeitername', rowGroup: false, hide: false, sortable: true, suppressColumnsToolPanel: false, resizable: true, suppressSizeToFit: true, tooltipField: 'Mitarbeitername'},
         ]},
         {headerName: 'DL',
         children: [
-        { field: 'ILV', rowGroup: false, hide: false, sortable: true, resizable: true, tooltipField: 'ILV'},
-        { field: 'Zeus', rowGroup: false, hide: false, sortable: true, resizable: true},
-        { field: 'Delta', rowGroup: false, hide: false, sortable: true, resizable: true},
-        { field: 'Delta in %', rowGroup: false, hide: false, sortable: true, resizable: true,}
+        { headerName: 'ILV', field: 'DL.ILV', hide: false, sortable: true, resizable: true, tooltipField: 'ILV', aggFunc: 'sum', enableValue: true },
+        { headerName: 'Zeus', field: 'DL.Zeus', hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
+        { headerName: 'Δ', field: 'DL.Δ', hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true},
+        { headerName: 'Δ%', field: 'DL.Δ%', hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
         ]
     },
-        {headerName: 'F&E',
+        {headerName: 'FE',
             children: [
-            { field: 'ILV', rowGroup: false, hide: false, sortable: true, resizable: true},
-            { field: 'Zeus', rowGroup: false, hide: false, sortable: true, resizable: true },
-            { field: 'Delta', rowGroup: false, hide: false, sortable: true, resizable: true },
-            { field: 'Delta in %', rowGroup: false, hide: false, sortable: true, resizable: true  }
+            { headerName: 'ILV', field: 'FE.ILV', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
+            { headerName: 'Zeus', field: 'FE.Zeus',  rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
+            { headerName: 'Δ', field: 'FE.Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true},
+            { headerName: 'Δ%', field: 'FE.Δ%',rowGroup: false, hide: false, sortable: true, aggFunc: 'sum', resizable: true, enableValue: true}
             ]
         },
-        {headerName: 'Interne Projekte',
+        {headerName: 'Interne_Projekte',
         children: [
-        { field: 'ILV', rowGroup: false, hide: false, sortable: true, resizable: true},
-        { field: 'Zeus', rowGroup: false, hide: false, sortable: true, resizable: true },
-        { field: 'Delta', rowGroup: false, hide: false, sortable: true, resizable: true },
-        { field: 'Delta in %', rowGroup: false, hide: false, sortable: true, resizable: true  }
+        { headerName: 'ILV', field: 'Interne_Projekte.ILV', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
+        { headerName: 'Zeus', field: 'Interne_Projekte.Zeus', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
+        { headerName: 'Δ', field: 'Interne_Projekte.Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true},
+        { headerName: 'Δ%', field: 'Interne_Projekte.Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true}
         ]
     },
         {headerName: 'WB',
         children: [
-        { field: 'ILV', rowGroup: false, hide: false, sortable: true, resizable: true },
-        { field: 'Zeus', rowGroup: false, hide: false, sortable: true, resizable: true },
-        { field: 'Delta', rowGroup: false, hide: false, sortable: true, resizable: true },
-        { field: 'Delta in %', rowGroup: false, hide: false, sortable: true, resizable: true }
+        { headerName: 'ILV', field: 'WB.ILV', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
+        { headerName: 'Zeus', field: 'WB.Zeus', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
+        { headerName: 'Δ', field: 'WB.Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true},
+        { headerName: 'Δ%', field: 'WB.Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true}
         ]
-}
-        
-
+},
+        {headerName: 'Gesamtergebnis', 
+        children: [
+        { headerName: 'ILV', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true},
+        { headerName: 'Zeus', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true},
+        { headerName: 'Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true},
+        { headerName: 'Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true}
+        ]
+},
     ];
 
 
@@ -64,36 +71,63 @@ export class AppComponent implements OnInit {
     
     groupMultiAutoColumn: true;
 
+    
 
-    constructor(private http: HttpClient) {
-
+    deltaValueGetter(params) {
+        let values = [];
+        if (params.colDef.field === "DL.Δ") {
+            values = ['DL.ILV', 'DL.Zeus'];
+        }
+        if (params.colDef.field === "FE.Δ") {
+            values = ['FE.ILV', 'FE.Zeus'];
+        }
+        if (params.colDef.field === "Interne_Projekte.Δ") {
+            values = ['Interne_Projekt.ILV', 'Interne_Projekte.Zeus'];
+        }
+        if (params.colDef.field === "WB.Δ") {
+            values = ['WB.ILV', 'WB.Zeus'];
+        }
+        return params.getValue(values[0]) - params.getValue(values[1]);
     }
 
-    
+
+    totalValueGetter(params) {
+        let values = [];
+        if (params.colDef.headerName === "ILV" || params.colDef.headerName === "Zeus") {
+            if (params.colDef.headerName === "ILV") {
+                values = ['DL.ILV', 'FE.ILV', 'Interne_Projekte.ILV', 'WB.ILV'];
+            }
+            if (params.colDef.headerName === "Zeus") {
+                values = ['DL.Zeus', 'FE.Zeus', 'Interne_Projekte.Zeus', 'WB.Zeus']
+            }
+            return params.getValue(values[0]) + params.getValue(values[1]) + params.getValue(values[2]) + params.getValue(values[3]); 
+        }
+        if (params.colDef.headerName === "Δ") {
+            const valuesILV = ['DL.ILV', 'FE.ILV', 'Interne_Projekte.IL', 'WB.ILV'];
+            const valuesZeus = ['DL.Zeus', 'FE.Zeus', 'Interne_Projekte.Zeus', 'WB.Zeus'];
+            return (params.getValue(valuesILV[0]) + params.getValue(valuesILV[1]) + params.getValue(valuesILV[2]) + params.getValue(valuesILV[3])) -  (params.getValue(valuesZeus[0]) + params.getValue(valuesZeus[1]) + params.getValue(valuesZeus[2]) + params.getValue(valuesZeus[3])); 
+        }
+        if (params.colDef.headerName === "Δ%") {
+            const valuesDelta = ['DL.Δ', 'FE.Δ', 'Interne_Projekte.Δ', 'WB.Δ'];
+            const valuesILV = ['DL.ILV', 'FE.ILV', 'Interne_Projekte.ILV', 'WB.ILV'];
+            const dif = ((params.getValue(valuesDelta[0]) + params.getValue(valuesDelta[1]) + params.getValue(valuesDelta[2]) + params.getValue(valuesDelta[3])) / (params.getValue(valuesILV[0]) + params.getValue(valuesILV[1]) + params.getValue(valuesILV[2]) + params.getValue(valuesILV[3]))) * 100; 
+            return dif;
+        }
+    }
+
+    constructor(private http: HttpClient) {
+    }
 
     ngOnInit() {
         this.rowData = [
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Hans Muster'  },
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Peter Muster'  },
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Ralf Muster'  },
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W FS Corporate Finance & Private Equity' },
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Lehre Banking, Finance, Insurance' },
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Zentrum für Accounting&Controlling' },
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Zentrum für Banking & Finance' },
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Zentrum für Risk & Insurance' },
-            
+            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Hans Muster', 'DL': {'ILV': 0, 'Zeus': -40, 'Δ%': 0 }, 'FE': {'ILV': -192, 'Zeus': -60, 'Δ%': 69 }, 'Interne_Projekte': {'ILV': -843, 'Zeus': -600, 'Δ%': 29 }, 'WB': {'ILV': -24, 'Zeus': -8, 'Δ%': 69 }}, 
+            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Peter Muster', 'DL': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'FE': {'ILV': -17, 'Zeus': 0, 'Δ%': 100 }, 'Interne_Projekte': {'ILV': -42, 'Zeus': -70, 'Δ%': -66 }, 'WB': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }},
+            { 'OE FS II': 'W Abteilung Business Law Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', 'Mitarbeitername': 'Petra Müller', 'DL': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'FE': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'Interne_Projekte': {'ILV': -55, 'Zeus': -75, 'Δ%': -37 }, 'WB': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }},
+            { 'OE FS II': 'W Abteilung Business Law Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', 'Mitarbeitername': 'Ramon Müller', 'DL': {'ILV': -63, 'Zeus': 0, 'Δ%': 100}, 'FE': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'Interne_Projekte': {'ILV': -278, 'Zeus': -618, 'Δ%': -123 }, 'WB': {'ILV': -300, 'Zeus': 0, 'Δ%': 100 }},
         ];
     }
 
     onGridReady() {
         this.agGrid.gridOptions.api.sizeColumnsToFit();
       }
-
-    getSelectedRows() {
-        const selectedNodes = this.agGrid.api.getSelectedNodes();
-        const selectedData = selectedNodes.map(node => node.data );
-        const selectedDataStringPresentation = selectedData.map(node => node.make + ' ' + node.model).join(', ');
-
-        alert(`Selected nodes: ${selectedDataStringPresentation}`);
-    }
 }
