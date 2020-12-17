@@ -5,6 +5,7 @@ import 'ag-grid-enterprise';
 
 
 
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -66,11 +67,11 @@ export class AppComponent implements OnInit {
         ]},
     ];
 
+    theme = 'ag-theme-balham';
 
     rowData: any;
     
     groupMultiAutoColumn: true;
-
     
 
     deltaValueGetter(params) {
@@ -132,4 +133,8 @@ export class AppComponent implements OnInit {
     onGridReady() {
         this.agGrid.gridOptions.api.sizeColumnsToFit();
       }
+    
+    getTheme() {
+        return "ag-theme-balham-dark";
+    }
 }

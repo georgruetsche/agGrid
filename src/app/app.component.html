@@ -1,8 +1,12 @@
 <div><span style="display:none;">app-project-ag-grid app is running!</span></div>
+
+        <input type="radio" [(ngModel)]="theme" value="ag-theme-balham">Light
+        <input type="radio" [(ngModel)]="theme" value="ag-theme-balham-dark">Dark
+
 <ag-grid-angular
     #agGrid
     style="width: 100%; height: 500px;"
-    class="ag-theme-balham"
+    [ngClass]="theme"
     [rowData]="rowData"
     [columnDefs]="columnDefs"
     rowSelection="multiple"
