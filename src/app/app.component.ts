@@ -30,40 +30,40 @@ export class AppComponent implements OnInit {
         children: [
         { headerName: 'ILV', field: 'DL.ILV', hide: false, sortable: true, resizable: true, tooltipField: 'ILV', aggFunc: 'sum', enableValue: true },
         { headerName: 'Zeus', field: 'DL.Zeus', hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
-        { headerName: 'Δ', field: 'DL.Δ', hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true},
-        { headerName: 'Δ%', field: 'DL.Δ%', hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
+        { headerName: 'Δ', field: 'DL.Δ', hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
+        { headerName: 'Δ%', field: 'DL.Δ%', hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
         ]},
 
         {headerName: 'FE',
             children: [
             { headerName: 'ILV', field: 'FE.ILV', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
             { headerName: 'Zeus', field: 'FE.Zeus',  rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
-            { headerName: 'Δ', field: 'FE.Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true},
-            { headerName: 'Δ%', field: 'FE.Δ%',rowGroup: false, hide: false, sortable: true, aggFunc: 'sum', resizable: true, enableValue: true}
+            { headerName: 'Δ', field: 'FE.Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
+            { headerName: 'Δ%', field: 'FE.Δ%',rowGroup: false, hide: false, sortable: true, aggFunc: 'sum', resizable: true, enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
             ]},
 
         {headerName: 'Interne_Projekte',
         children: [
         { headerName: 'ILV', field: 'Interne_Projekte.ILV', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
         { headerName: 'Zeus', field: 'Interne_Projekte.Zeus', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
-        { headerName: 'Δ', field: 'Interne_Projekte.Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true},
-        { headerName: 'Δ%', field: 'Interne_Projekte.Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true}
+        { headerName: 'Δ', field: 'Interne_Projekte.Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
+        { headerName: 'Δ%', field: 'Interne_Projekte.Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
         ]},
 
         {headerName: 'WB',
         children: [
         { headerName: 'ILV', field: 'WB.ILV', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
         { headerName: 'Zeus', field: 'WB.Zeus', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
-        { headerName: 'Δ', field: 'WB.Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true},
-        { headerName: 'Δ%', field: 'WB.Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true}
+        { headerName: 'Δ', field: 'WB.Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
+        { headerName: 'Δ%', field: 'WB.Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
         ]},
 
         {headerName: 'Gesamtergebnis', 
         children: [
         { headerName: 'ILV', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true},
         { headerName: 'Zeus', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true},
-        { headerName: 'Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true},
-        { headerName: 'Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true}
+        { headerName: 'Δ', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
+        { headerName: 'Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
         ]},
     ];
 

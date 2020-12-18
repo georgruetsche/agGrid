@@ -5,3 +5,16 @@
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-balham-dark.css";
 /* Add application styles & imports to this file! */
 
+.ag-theme-alpine {
+    @include ag-theme-balham ((
+        // use theme parameters where possible
+
+        // Default border for cells. This can be used to specify the border-style and border-color properties e.g. `dashed red` but the border-width is fixed at 1px.
+        cell-horizontal-border: solid ag-derived(secondary-border-color),
+    ));
+
+    .ag-header-cell {
+        // or write CSS selectors to make customisations beyond what the parameters support
+        border-right: 1px solid ag-param(secondary-border-color);
+    }
+}
