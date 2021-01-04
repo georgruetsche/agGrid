@@ -144,8 +144,5 @@ export class AppComponent implements OnInit {
         return "ag-theme-balham-dark";
     }
 
-      onSubmit() {
-        // TODO: Use EventEmitter with form value
-        console.warn(this.profileForm.value);
-      }
+  
 }
