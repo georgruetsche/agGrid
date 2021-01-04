@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import 'ag-grid-enterprise';
+import { FormControl, FormGroup } from '@angular/forms';
 
 
 
@@ -66,6 +67,11 @@ export class AppComponent implements OnInit {
         { headerName: 'Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
         ]},
     ];
+
+    profileForm = new FormGroup({
+        firstName: new FormControl(''),
+        lastName: new FormControl(''),
+      });
 
     theme = 'ag-theme-balham';
 
@@ -137,4 +143,9 @@ export class AppComponent implements OnInit {
     getTheme() {
         return "ag-theme-balham-dark";
     }
+
+      onSubmit() {
+        // TODO: Use EventEmitter with form value
+        console.warn(this.profileForm.value);
+      }
 }
