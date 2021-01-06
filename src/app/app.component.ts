@@ -20,16 +20,20 @@ export class AppComponent implements OnInit {
     columnDefs = [
         {headerName: '',
         children: [
-        { headerName: 'OE FS II', showRowGroup: 'OE FS II', cellRenderer: 'agGroupCellRenderer', minWidth: 150, tooltipField: 'OE FS II', resizable: true,  sortable: true},
+        { headerName: 'OE FS II', showRowGroup: 'OE FS II', cellRenderer: 'agGroupCellRenderer', minWidth: 150, tooltipField: 'OE FS II', resizable: true,  sortable: true, cellRendererParams: {
+          suppressCount: true
+        }},
         { field: 'OE FS II', rowGroup: true, hide: true, suppressColumnsToolPanel: true},
-        { headerName: 'OE FS III', showRowGroup: 'OE FS III', cellRenderer: 'agGroupCellRenderer', minWidth: 150, tooltipField: 'OE FS III', resizable: true, sortable: true},
+        { headerName: 'OE FS III', showRowGroup: 'OE FS III', cellRenderer: 'agGroupCellRenderer', minWidth: 150, tooltipField: 'OE FS III', resizable: true, sortable: true, cellRendererParams: {
+          suppressCount: true
+        }},
         { field: 'OE FS III', rowGroup: true, hide: true, suppressColumnsToolPanel: true},
         { field: 'Mitarbeitername', rowGroup: false, hide: false, sortable: true, suppressColumnsToolPanel: false, resizable: true, suppressSizeToFit: true, tooltipField: 'Mitarbeitername'},
         ]},
 
         {headerName: 'DL',
         children: [
-        { headerName: 'ILV', field: 'DL.ILV', hide: false, sortable: true, resizable: true, tooltipField: 'ILV', aggFunc: 'sum', enableValue: true },
+        { headerName: 'ILV', field: 'DL.ILV', hide: false, sortable: true, resizable: true, tooltipField: 'ILV', aggFunc: 'sum', enableValue: true},
         { headerName: 'Zeus', field: 'DL.Zeus', hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true},
         { headerName: 'Δ', field: 'DL.Δ', hide: false, sortable: true, resizable: true, valueGetter: this.deltaValueGetter, enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
         { headerName: 'Δ%', field: 'DL.Δ%', hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
@@ -59,7 +63,7 @@ export class AppComponent implements OnInit {
         { headerName: 'Δ%', field: 'WB.Δ%', rowGroup: false, hide: false, sortable: true, resizable: true, aggFunc: 'sum', enableValue: true, cellStyle: () => {return { fontWeight: 'bold'}}},
         ]},
 
-        {headerName: 'Gesamtergebnis', 
+        {headerName: 'Gesamtergebnis',
         children: [
         { headerName: 'ILV', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true},
         { headerName: 'Zeus', rowGroup: false, hide: false, sortable: true, resizable: true, valueGetter: this.totalValueGetter, enableValue: true},
@@ -76,9 +80,8 @@ export class AppComponent implements OnInit {
     theme = 'ag-theme-balham';
 
     rowData: any;
-    
+
     groupMultiAutoColumn: true;
-    
 
     deltaValueGetter(params) {
         let values = [];
@@ -107,12 +110,12 @@ export class AppComponent implements OnInit {
             if (params.colDef.headerName === "Zeus") {
                 values = ['DL.Zeus', 'FE.Zeus', 'Interne_Projekte.Zeus', 'WB.Zeus']
             }
-            return params.getValue(values[0]) + params.getValue(values[1]) + params.getValue(values[2]) + params.getValue(values[3]); 
+            return params.getValue(values[0]) + params.getValue(values[1]) + params.getValue(values[2]) + params.getValue(values[3]);
         }
         if (params.colDef.headerName === "Δ") {
             const valuesILV = ['DL.ILV', 'FE.ILV', 'Interne_Projekte.ILV', 'WB.ILV'];
             const valuesZeus = ['DL.Zeus', 'FE.Zeus', 'Interne_Projekte.Zeus', 'WB.Zeus'];
-            return (params.getValue(valuesILV[0]) + params.getValue(valuesILV[1]) + params.getValue(valuesILV[2]) + params.getValue(valuesILV[3])) -  (params.getValue(valuesZeus[0]) + params.getValue(valuesZeus[1]) + params.getValue(valuesZeus[2]) + params.getValue(valuesZeus[3])); 
+            return (params.getValue(valuesILV[0]) + params.getValue(valuesILV[1]) + params.getValue(valuesILV[2]) + params.getValue(valuesILV[3])) -  (params.getValue(valuesZeus[0]) + params.getValue(valuesZeus[1]) + params.getValue(valuesZeus[2]) + params.getValue(valuesZeus[3]));
         }
         if (params.colDef.headerName === "Δ%") {
             const valuesDelta = ['DL.Δ', 'FE.Δ', 'Interne_Projekte.Δ', 'WB.Δ'];
@@ -129,7 +132,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.rowData = [
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Hans Muster', 'DL': {'ILV': 0, 'Zeus': -40, 'Δ%': 0 }, 'FE': {'ILV': -192, 'Zeus': -60, 'Δ%': 69 }, 'Interne_Projekte': {'ILV': -843, 'Zeus': -600, 'Δ%': 29 }, 'WB': {'ILV': -24, 'Zeus': -8, 'Δ%': 69 }}, 
+            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Hans Muster', 'DL': {'ILV': 0, 'Zeus': -40, 'Δ%': 0 }, 'FE': {'ILV': -192, 'Zeus': -60, 'Δ%': 69 }, 'Interne_Projekte': {'ILV': -843, 'Zeus': -600, 'Δ%': 29 }, 'WB': {'ILV': -24, 'Zeus': -8, 'Δ%': 69 }},
             { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Peter Muster', 'DL': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'FE': {'ILV': -17, 'Zeus': 0, 'Δ%': 100 }, 'Interne_Projekte': {'ILV': -42, 'Zeus': -70, 'Δ%': -66 }, 'WB': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }},
             { 'OE FS II': 'W Abteilung Business Law Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', 'Mitarbeitername': 'Petra Müller', 'DL': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'FE': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'Interne_Projekte': {'ILV': -55, 'Zeus': -75, 'Δ%': -37 }, 'WB': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }},
             { 'OE FS II': 'W Abteilung Business Law Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', 'Mitarbeitername': 'Ramon Müller', 'DL': {'ILV': -63, 'Zeus': 0, 'Δ%': 100}, 'FE': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'Interne_Projekte': {'ILV': -278, 'Zeus': -618, 'Δ%': -123 }, 'WB': {'ILV': -300, 'Zeus': 0, 'Δ%': 100 }},
@@ -139,10 +142,10 @@ export class AppComponent implements OnInit {
     onGridReady() {
         this.agGrid.gridOptions.api.sizeColumnsToFit();
       }
-    
+
     getTheme() {
         return "ag-theme-balham-dark";
     }
 
-  
+
 }

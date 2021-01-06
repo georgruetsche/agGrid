@@ -10,18 +10,10 @@
     @include ag-theme-balham((
         cell-horizontal-border: solid ag-derived(secondary-border-color)
     ));
-
-    .ag-header-cell {
-        border-right: 1px solid ag-param(secondary-border-color);
-    }
 }
 
 .ag-theme-balham-dark {
     @include ag-theme-balham-dark((
         cell-horizontal-border: solid ag-derived(secondary-border-color)
     ));
-
-    .ag-header-cell {
-        border-right: 1px solid ag-param(secondary-border-color);
-    }
 }
