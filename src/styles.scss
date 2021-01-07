@@ -5,6 +5,7 @@
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-balham.css";
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-balham-dark.css";
 @import "../node_modules/ag-grid-community/src/styles/ag-theme-balham-dark/sass/ag-theme-balham-dark-mixin";
+@import "~bootstrap/scss/bootstrap";
 
 .ag-theme-balham {
     @include ag-theme-balham((
