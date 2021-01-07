@@ -208,7 +208,6 @@ export class AppComponent implements OnInit {
     }
 
     onBtExport(): void {
-      const columnWidth = this.getBooleanValue('#columnWidth') ? this.getTextValue('#columnWidthValue') : undefined;
       const params = {
         sheetName: this.getBooleanValue('#sheetName') && this.getTextValue('#sheetNameValue'),
         suppressTextAsCDATA: this.getBooleanValue('#suppressTextAsCDATA'),
