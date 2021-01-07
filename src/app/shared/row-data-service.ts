@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class RowDataService {
-  rowData: any[];
+  rowData: object[];
 
   constructor() {
     this.rowData = [

@@ -97,7 +97,7 @@ export class AppComponent implements OnInit {
 
     theme = 'ag-theme-balham';
 
-    rowData: any;
+    rowData: object[];
 
     groupMultiAutoColumn: true;
 
