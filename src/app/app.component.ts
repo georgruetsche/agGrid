@@ -5,7 +5,13 @@ import 'ag-grid-enterprise';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
-
+interface ExcelExportParams {
+  sheetName?: string;
+  suppressTextAsCDATA?: boolean;
+  exportMode?: undefined | 'xml';
+  rowHeight?: number;
+  headerRowHeight?: number;
+}
 
 @Component({
     selector: 'app-root',
@@ -144,6 +150,43 @@ export class AppComponent implements OnInit {
 
     getTheme() {
         return 'ag-theme-balham-dark';
+    }
+
+    getBooleanValue(cssSelector) {
+      return document.querySelector(cssSelector) ? document.querySelector(cssSelector).checked === true : false;
+    }
+
+    getTextValue(cssSelector) {
+      return document.querySelector(cssSelector).value;
+    }
+
+    getNumericValue(cssSelector) {
+      const value = parseFloat(this.getTextValue(cssSelector));
+      if (isNaN(value)) {
+        const message = 'Invalid number entered in ' + cssSelector + ' field';
+        alert(message);
+        throw new Error(message);
+      }
+      return value;
+    }
+
+    myColumnWidthCallback(params) {
+      const originalWidth = params.column.getActualWidth();
+      if (params.index < 7) {
+        return originalWidth;
+      }
+      return 30;
+    }
+
+    onBtExport() {
+      const columnWidth = this.getBooleanValue('#columnWidth') ? this.getTextValue('#columnWidthValue') : undefined;
+      const params = {
+        sheetName: this.getBooleanValue('#sheetName') && this.getTextValue('#sheetNameValue'),
+        suppressTextAsCDATA: this.getBooleanValue('#suppressTextAsCDATA'),
+        rowHeight: this.getBooleanValue('#rowHeight') ? this.getNumericValue('#rowHeightValue') : undefined,
+        headerRowHeight: this.getBooleanValue('#headerRowHeight') ? this.getNumericValue('#headerRowHeightValue') : undefined,
+      };
+      this.agGrid.gridOptions.api.exportDataAsExcel(params);
     }
 
 
