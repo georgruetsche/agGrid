@@ -4,15 +4,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import 'ag-grid-enterprise';
 import { FormControl, FormGroup } from '@angular/forms';
 import { RowDataService } from './shared/row-data-service';
-
-
-interface ExcelExportParams {
-  sheetName?: string;
-  suppressTextAsCDATA?: boolean;
-  exportMode?: undefined | 'xml';
-  rowHeight?: number;
-  headerRowHeight?: number;
-}
+import { summaryFileName } from '@angular/compiler/src/aot/util';
 
 @Component({
     selector: 'app-root',
@@ -172,7 +164,7 @@ export class AppComponent implements OnInit {
     }
 
     getBooleanValue(cssSelector): boolean {
-      return document.querySelector(cssSelector) ? document.querySelector(cssSelector).checked === true : false;
+      return document.querySelector(cssSelector) ? document.querySelector(cssSelector).checked : false;
     }
 
     getTextValue(cssSelector): string {
@@ -199,10 +191,11 @@ export class AppComponent implements OnInit {
 
     onBtExport(): void {
       const params = {
-        sheetName: this.getBooleanValue('#sheetName') && this.getTextValue('#sheetNameValue'),
+        sheetName: 'export',
         suppressTextAsCDATA: this.getBooleanValue('#suppressTextAsCDATA'),
         rowHeight: this.getBooleanValue('#rowHeight') ? this.getNumericValue('#rowHeightValue') : undefined,
         headerRowHeight: this.getBooleanValue('#headerRowHeight') ? this.getNumericValue('#headerRowHeightValue') : undefined,
+        columnGroups: true,
       };
       this.agGrid.gridOptions.api.exportDataAsExcel(params);
     }
