@@ -108,7 +108,7 @@ export class AppComponent implements OnInit {
 
     groupMultiAutoColumn: true;
 
-    deltaValueGetter(params) {
+    deltaValueGetter(params): number {
         let values = [];
         if (params.colDef.field === 'DL.Δ') {
             values = ['DL.ILV', 'DL.Zeus'];
@@ -126,26 +126,29 @@ export class AppComponent implements OnInit {
     }
 
 
-    totalValueGetter(params) {
+    totalValueGetter(params): number {
         let values = [];
         if (params.colDef.headerName === 'ILV' || params.colDef.headerName === 'Zeus') {
             if (params.colDef.headerName === 'ILV') {
                 values = ['DL.ILV', 'FE.ILV', 'Interne_Projekte.ILV', 'WB.ILV'];
             }
             if (params.colDef.headerName === 'Zeus') {
-                values = ['DL.Zeus', 'FE.Zeus', 'Interne_Projekte.Zeus', 'WB.Zeus']
+                values = ['DL.Zeus', 'FE.Zeus', 'Interne_Projekte.Zeus', 'WB.Zeus'];
             }
             return params.getValue(values[0]) + params.getValue(values[1]) + params.getValue(values[2]) + params.getValue(values[3]);
         }
         if (params.colDef.headerName === 'Δ') {
             const valuesILV = ['DL.ILV', 'FE.ILV', 'Interne_Projekte.ILV', 'WB.ILV'];
             const valuesZeus = ['DL.Zeus', 'FE.Zeus', 'Interne_Projekte.Zeus', 'WB.Zeus'];
-            return (params.getValue(valuesILV[0]) + params.getValue(valuesILV[1]) + params.getValue(valuesILV[2]) + params.getValue(valuesILV[3])) -  (params.getValue(valuesZeus[0]) + params.getValue(valuesZeus[1]) + params.getValue(valuesZeus[2]) + params.getValue(valuesZeus[3]));
+            // tslint:disable-next-line: max-line-length
+            return (params.getValue(valuesILV[0]) + params.getValue(valuesILV[1]) + params.getValue(valuesILV[2]) + params.getValue(valuesILV[3])) - (params.getValue(valuesZeus[0]) + params.getValue(valuesZeus[1]) + params.getValue(valuesZeus[2]) + params.getValue(valuesZeus[3]));
         }
         if (params.colDef.headerName === 'Δ%') {
             const valuesDelta = ['DL.Δ', 'FE.Δ', 'Interne_Projekte.Δ', 'WB.Δ'];
             const valuesILV = ['DL.ILV', 'FE.ILV', 'Interne_Projekte.ILV', 'WB.ILV'];
+            // tslint:disable-next-line: max-line-length
             const totalDelta = params.getValue(valuesDelta[0]) + params.getValue(valuesDelta[1]) + params.getValue(valuesDelta[2]) + params.getValue(valuesDelta[3]);
+            // tslint:disable-next-line: max-line-length
             const totalILV =  params.getValue(valuesILV[0]) + params.getValue(valuesILV[1]) + params.getValue(valuesILV[2]) + params.getValue(valuesILV[3]);
             const totalDif = (totalDelta / totalILV) * 100;
             return Math.round(totalDif);
@@ -157,12 +160,16 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.rowData = [
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Hans Muster', 'DL': {'ILV': 0, 'Zeus': -40, 'Δ%': 0 }, 'FE': {'ILV': -192, 'Zeus': -60, 'Δ%': 69 }, 'Interne_Projekte': {'ILV': -843, 'Zeus': -600, 'Δ%': 29 }, 'WB': {'ILV': -24, 'Zeus': -8, 'Δ%': 69 }},
-            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.', 'Mitarbeitername': 'Peter Muster', 'DL': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'FE': {'ILV': -17, 'Zeus': 0, 'Δ%': 100 }, 'Interne_Projekte': {'ILV': -42, 'Zeus': -70, 'Δ%': -66 }, 'WB': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }},
-            { 'OE FS II': 'W Abteilung Business Law Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', 'Mitarbeitername': 'Petra Müller', 'DL': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'FE': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'Interne_Projekte': {'ILV': -55, 'Zeus': -75, 'Δ%': -37 }, 'WB': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }},
-            { 'OE FS II': 'W Abteilung Business Law Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', 'Mitarbeitername': 'Ramon Müller', 'DL': {'ILV': -63, 'Zeus': 0, 'Δ%': 100}, 'FE': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'Interne_Projekte': {'ILV': -278, 'Zeus': -618, 'Δ%': -123 }, 'WB': {'ILV': -300, 'Zeus': 0, 'Δ%': 100 }},
-            { 'OE FS II': 'W Abteilung Business Test Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', 'Mitarbeitername': 'Petra Müller', 'DL': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'FE': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'Interne_Projekte': {'ILV': -55, 'Zeus': -75, 'Δ%': -37 }, 'WB': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }},
-            { 'OE FS II': 'W Abteilung Business Test Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', 'Mitarbeitername': 'Ramon Müller', 'DL': {'ILV': -63, 'Zeus': 0, 'Δ%': 100}, 'FE': {'ILV': 0, 'Zeus': 0, 'Δ%': 0 }, 'Interne_Projekte': {'ILV': -278, 'Zeus': -618, 'Δ%': -123 }, 'WB': {'ILV': -300, 'Zeus': 0, 'Δ%': 100 }},
+            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.',
+            Mitarbeitername: 'Hans Muster', DL: {ILV: 0, Zeus: -40, 'Δ%': 0 }, FE: {ILV: -192, Zeus: -60, 'Δ%': 69 },
+            Interne_Projekte: {ILV: -843, Zeus: -600, 'Δ%': 29 }, WB: {ILV: -24, Zeus: -8, 'Δ%': 69 }},
+            { 'OE FS II': 'W Abteilung Banking, Finance, Insurance Gesamt', 'OE FS III': 'W Abt. Banking, Finance, Insurance Ltg.',
+            Mitarbeitername: 'Peter Muster', DL: {ILV: 0, Zeus: 0, 'Δ%': 0 }, FE: {ILV: -17, Zeus: 0, 'Δ%': 100 },
+            Interne_Projekte: {ILV: -42, Zeus: -70, 'Δ%': -66 }, WB: {ILV: 0, Zeus: 0, 'Δ%': 0 }},
+            { 'OE FS II': 'W Abteilung Business Law Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', Mitarbeitername: 'Petra Müller', DL: {ILV: 0, Zeus: 0, 'Δ%': 0 }, FE: {ILV: 0, Zeus: 0, 'Δ%': 0 }, Interne_Projekte: {ILV: -55, Zeus: -75, 'Δ%': -37 }, WB: {ILV: 0, Zeus: 0, 'Δ%': 0 }},
+            { 'OE FS II': 'W Abteilung Business Law Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', Mitarbeitername: 'Ramon Müller', DL: {ILV: -63, Zeus: 0, 'Δ%': 100}, FE: {ILV: 0, Zeus: 0, 'Δ%': 0 }, Interne_Projekte: {ILV: -278, Zeus: -618, 'Δ%': -123 }, WB: {ILV: -300, Zeus: 0, 'Δ%': 100 }},
+            { 'OE FS II': 'W Abteilung Business Test Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', Mitarbeitername: 'Petra Müller', DL: {ILV: 0, Zeus: 0, 'Δ%': 0 }, FE: {ILV: 0, Zeus: 0, 'Δ%': 0 }, Interne_Projekte: {ILV: -55, Zeus: -75, 'Δ%': -37 }, WB: {ILV: 0, Zeus: 0, 'Δ%': 0 }},
+            { 'OE FS II': 'W Abteilung Business Test Gesamt', 'OE FS III': 'W Abteilung Business Law Ltg. Gesamt', Mitarbeitername: 'Ramon Müller', DL: {ILV: -63, Zeus: 0, 'Δ%': 100}, FE: {ILV: 0, Zeus: 0, 'Δ%': 0 }, Interne_Projekte: {ILV: -278, Zeus: -618, 'Δ%': -123 }, WB: {ILV: -300, Zeus: 0, 'Δ%': 100 }},
           ];
     }
 
