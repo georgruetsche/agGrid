@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
         {headerName: '',
         children: [
         { headerName: 'OE FS II', showRowGroup: 'OE FS II', cellRenderer: 'agGroupCellRenderer', minWidth: 200, tooltipField: 'OE FS II',
-        pinned: 'left',  sortable: true, cellRendererParams: {suppressCount: true }, wrapText: true, autoHeight: true},
+        pinned: 'left', sortable: true, cellRendererParams: {suppressCount: true}, wrapText: true, autoHeight: true},
         { field: 'OE FS II', rowGroup: true, hide: true, suppressColumnsToolPanel: true},
         { headerName: 'OE FS III', showRowGroup: 'OE FS III', cellRenderer: 'agGroupCellRenderer', minWidth: 200, tooltipField: 'OE FS III',
         pinned: 'left', sortable: true, cellRendererParams: {suppressCount: true}, wrapText: true, autoHeight: true},
